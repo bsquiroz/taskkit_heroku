@@ -112,6 +112,11 @@ const renderVerified = (req, res) => {
     });
 };
 
+const restablecer = (req, res) => {
+    const aux = req.query;
+    res.json({ aux });
+};
+
 module.exports = {
     renderLogin,
     renderRegistro,
@@ -125,4 +130,5 @@ module.exports = {
     resetPassword,
     renderVerified,
     confirmCount,
+    restablecer,
 };

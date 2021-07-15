@@ -27,4 +27,7 @@ authRouter.get("/verified", authController.renderVerified);
 //ruta para mandar el correo
 authRouter.post("/auth/confirm-count", authController.confirmCount);
 
+//ruta para reestablecer la contraseña 2
+authRouter.get("/auth/restablecer", authController.restablecer);
+
 module.exports = authRouter;
