@@ -89,8 +89,6 @@ passport.serializeUser(async (profile, done) => {
             password: "123",
         };
 
-        console.log(userObj);
-
         if (user) {
             const userId = user.id;
             await linkUserProvider(id, userId, provider);

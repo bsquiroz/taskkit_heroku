@@ -21,20 +21,24 @@
                 Guardar
             </button>
         </form>
-        <div class="m-top">
+        <div class="container-cards">
             <% data.forEach((element, i )=> { %>
             <div class="card">
                 <div class="card-title">
-                    <p><b><%= i+1 %></b> - <span><%= element.dataValues.name%></span></p>
-                </div>
-                <div class="card-body">
-                    <p><%= element.dataValues.color%></p>
+                    <%if(element.dataValues.color === "verde") {%>
+                    <span class="verde"></span>
+                    <%} else if (element.dataValues.color === "naranja") { %>
+                    <span class="naranja"></span>
+                    <%} else {%>
+                    <span class="rojo"></span>
+                    <%}%>
+                    <p><%= element.dataValues.name%></p>
                 </div>
                 <div class="card-info">
-                    <a class="btn-icon bg-icon-edit" href="/estatus/editar/<%= element.id %>">
+                    <a class="btn-click color-icon" href="/estatus/editar/<%= element.id %>">
                         <ion-icon name="create-outline"></ion-icon>
                     </a>
-                    <a class="btn-icon bg-icon-delete" href="/estatus/eliminar/<%= element.id %>">
+                    <a class="btn-click color-icon" href="/estatus/eliminar/<%= element.id %>">
                         <ion-icon name="trash-outline"></ion-icon>
                     </a>
                 </div>

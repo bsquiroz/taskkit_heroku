@@ -17,6 +17,7 @@ const newUser = async ({ firstname, lastname, email, password }) => {
         const token = generateTokens();
 
         await userRegister(token, userId, email);
+        return user;
     } catch (error) {
         throw new Error(error);
     }

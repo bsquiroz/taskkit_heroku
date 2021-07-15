@@ -12,17 +12,17 @@
                 Guardar
             </button>
         </form>
-        <div class="m-top">
+        <div class="container-cards">
             <% data.forEach((element, i )=> { %>
-            <div class="card">
-                <div class="card-title">
-                    <p><b><%= i+1 %></b> <span><%= element.dataValues.name%></span></p>
+            <div class="card-category">
+                <div class="card-title-category">
+                    <p><%= element.dataValues.name%></p>
                 </div>
-                <div class="card-info">
-                    <a class="btn-icon bg-icon-edit" href="/categorias/editar/<%=element.id%>">
+                <div class="card-info-category">
+                    <a class="btn-click color-icon" href="/categorias/editar/<%=element.id%>">
                         <ion-icon name="create-outline"></ion-icon>
                     </a>
-                    <a class="btn-icon bg-icon-delete" href="/categorias/eliminar/<%=element.id%>">
+                    <a class="btn-click color-icon" href="/categorias/eliminar/<%=element.id%>">
                         <ion-icon name="trash-outline"></ion-icon>
                     </a>
                 </div>

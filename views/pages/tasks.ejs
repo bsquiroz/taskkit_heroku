@@ -17,7 +17,8 @@
                 <input id="description" type="date" name="due_date" required />
             </div>
             <div class="input-form">
-                <label for="status">estatus</label>
+                <label for="status">Estatus</label>
+                <%if(data.statuses.length){%>
                 <select name="status">
                     <option selected>Elije un estatus</option>
                     <%data.statuses.forEach((element) => {%>
@@ -26,9 +27,13 @@
                     </option>
                     <%});%>
                 </select>
+                <%} else {%>
+                <small><b>Debes de tener por lo menos un estatus</b></small>
+                <%}%>
             </div>
             <div class="input-form">
-                <label for="category">categoria</label>
+                <label for="category">Categoria</label>
+                <%if(data.categories.length){%>
                 <select name="category">
                     <option selected>Elije una categoria</option>
                     <%data.categories.forEach((element) => {%>
@@ -37,43 +42,55 @@
                     </option>
                     <%});%>
                 </select>
+                <%} else {%>
+                <small><b>Debes de tener por lo menos una categoria</b></small>
+                <% }%>
             </div>
             <button class="btn btn-login btn-click" type="submit">
                 Guardar
             </button>
         </form>
-        <div class="task-content">
+        <div class="container-cards">
             <%data.tasks.forEach((element, i) => {%>
-            <div class="card">
-                <div class="card-title">
-                    <p><b>#<%= i+1 %></b> <%= element.title %></p>
+            <div class="card-task">
+                <div class="card-task-title">
+                    <span><%= element.title %></span>
+                    <span><%= element.Category.name %></span>
+                    <%if(element.Status.color === "verde") {%>
+                    <div class="status-type-task">
+                        <span class="verde"></span>
+                        <span><%= element.Status.name %></span>
+                    </div>
+                    <%} else if (element.Status.color === "naranja") { %>
+                    <div class="status-type-task">
+                        <span class="naranja"></span>
+                        <span><%= element.Status.name %></span>
+                    </div>
+                    <%} else {%>
+                    <div class="status-type-task">
+                        <span class="rojo"></span>
+                        <span><%= element.Status.name %></span>
+                    </div>
+                    <%}%>
                 </div>
-                <div class="card-body">
-                    <p><%= element.description %></p>
+                <div class="card-task-body">
+                    <small><%= element.description %></small>
                     <% if(element.completed){ %>
-                    <a href="/tareas/completed/<%= element.id %>">
-                        Completa
+                    <a class="completed btn-click" href="/tareas/completed/<%= element.id %>">
+                        completa <ion-icon name="checkmark-circle"></ion-icon>
                     </a>
                     <% }else{ %>
-                    <a href="/tareas/completed/<%= element.id %>">
-                        Incompleta
+                    <a class="completed btn-click" href="/tareas/completed/<%= element.id %>">
+                        completa <ion-icon name="close-circle"></ion-icon>
                     </a>
                     <% }; %>
+                    <p class="task-date"><%= element.due_date %></p>
                 </div>
-                <div class="card-info">
-                    <div>
-                        <p><%= element.due_date %></p>
-                    </div>
-                    <div>
-                        <p><%= element.Category.name %></p>
-                        <p><%= element.Status.name %></p>
-                    </div>
-                </div>
-                <div class="card-option">
-                    <a class="btn-icon bg-icon-edit" href="/tareas/editar/<%= element.id %>">
+                <div class="card-task-option">
+                    <a class="btn-click color-icon" href="/tareas/editar/<%= element.id %>">
                         <ion-icon name="create-outline"></ion-icon>
                     </a>
-                    <a class="btn-icon bg-icon-delete" href="/tareas/eliminar/<%= element.id %>">
+                    <a class="btn-click color-icon" href="/tareas/eliminar/<%= element.id %>">
                         <ion-icon name="trash-outline"></ion-icon>
                     </a>
                 </div>

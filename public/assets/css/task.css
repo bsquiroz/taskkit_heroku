@@ -1,11 +1,49 @@
 .bg-login {
     background-color: var(--color-white);
 }
+
 .m-login {
     margin-top: 1em;
     margin-bottom: 1em;
 }
 
-.task-content {
-    margin-top: 1em;
+.card-task {
+    border: 1px solid var(--color-primary);
+    border-radius: 5px;
+    padding: 1em;
+    margin-bottom: 0.5em;
+}
+
+.card-task-title {
+    font-weight: 500;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+}
+
+.card-task-title div:nth-child(3) {
+    grid-column: 1/3;
+    column-gap: 0.5em;
+}
+
+.task-date {
+    font-weight: bold;
+    color: var(--color-primary);
+}
+
+.card-task-option {
+    text-align: center;
+}
+
+.status-type-task {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.completed {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 1em;
 }
