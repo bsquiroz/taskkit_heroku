@@ -6,6 +6,16 @@ const sidebar = document.querySelector("#sidebar"); //sidebar responsivo
 const menuOpen = document.querySelector("#menu-open");
 const menuClose = document.querySelector("#menu-close");
 
+//setting - sidebar
+const perfil = document.querySelector("#perfil");
+const setting = document.querySelector("#setting");
+
+if (setting) {
+    setting.addEventListener("click", () => {
+        perfil.classList.toggle("perfil-active");
+    });
+}
+
 if (iconToggle) {
     if (menu) {
         iconToggle.addEventListener("click", () => {
