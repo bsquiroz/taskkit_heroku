@@ -1,0 +1,53 @@
+.icon-menu {
+    position: fixed;
+    bottom: 60px;
+    right: 0.3em;
+    height: 32px;
+    font-size: 2em;
+    cursor: pointer;
+    color: var(--color-primary);
+}
+
+.no-active {
+    display: none;
+}
+
+.navigation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 40%;
+    background-color: var(--color-primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    margin-left: -100%;
+    transition: margin 0.5s;
+}
+
+.show-navigation {
+    margin-left: 0;
+}
+
+.navigation .logo a {
+    color: var(--color-white);
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.navigation .menu li {
+    margin-top: 1em;
+}
+
+.navigation .menu li a {
+    color: var(--color-white);
+    font-weight: 200;
+    transition: border 0.5s;
+}
+
+.navigation .menu li a:hover {
+    border-bottom: 1px solid var(--color-white);
+}

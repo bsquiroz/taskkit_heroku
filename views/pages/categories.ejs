@@ -1,0 +1,34 @@
+<%- include('../template/head') -%>
+<main class="container-login">
+    <%- include('../template/sidebar') -%>
+    <div class="content-login bg-login m-login">
+        <h2>Nueva Categoría</h2>
+        <form class="form" action="/categorias/create" method="POST">
+            <div class="input-form">
+                <label for="name">Nombre</label>
+                <input id="name" type="text" name="name" required />
+            </div>
+            <button class="btn btn-login btn-click" type="submit">
+                Guardar
+            </button>
+        </form>
+        <div class="m-top">
+            <% data.forEach((element, i )=> { %>
+            <div class="card">
+                <div class="card-title">
+                    <p><b><%= i+1 %></b> <span><%= element.dataValues.name%></span></p>
+                </div>
+                <div class="card-info">
+                    <a class="btn-icon bg-icon-edit" href="/categorias/editar/<%=element.id%>">
+                        <ion-icon name="create-outline"></ion-icon>
+                    </a>
+                    <a class="btn-icon bg-icon-delete" href="/categorias/eliminar/<%=element.id%>">
+                        <ion-icon name="trash-outline"></ion-icon>
+                    </a>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+    </div>
+</main>
+<%- include('../template/footer') -%>

@@ -1,0 +1,27 @@
+<%- include('../template/head') -%>
+<%- include('../template/nav') -%>
+<div class="container-login">
+    <div class="content-login">
+        <h2>Iniciar Sesión</h2>
+        <form class="form" action="/login" method="POST">
+            <div class="input-form">
+                <label for="firstname">Correo Eléctronico</label>
+                <input id="email" type="email" name="email" required>
+            </div>
+            <div class="input-form">
+                <label for="lastname">Contraseña</label>
+                <input type="password" name="password" required>
+            </div>
+            <button class="btn btn-login btn-click" type="submit">Enviar</button>
+        </form>
+        <div class="container-buttons">
+            <a class="icon-auth btn-click" href="/auth/google">
+                <ion-icon name="logo-google"></ion-icon>
+            </a>
+            <a class="icon-auth btn-click" href="/auth/facebook">
+                <ion-icon name="logo-facebook"></ion-icon>
+            </a>
+        </div>
+    </div>
+</div>
+<%- include('../template/footer') -%>

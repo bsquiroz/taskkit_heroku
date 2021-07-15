@@ -1,0 +1,15 @@
+.content-home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-home {
+    margin-top: 1em;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: 5px 10px;
+    border-radius: 5px;
+    outline: none;
+}

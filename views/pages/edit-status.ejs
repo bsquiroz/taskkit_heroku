@@ -1,0 +1,28 @@
+<%- include('../template/head') -%>
+<main class="container-login">
+    <%- include('../template/sidebar') -%>
+    <div class="content-login bg-login m-login">
+        <h2><b>Editando</b> Status</h2>
+        <form class="form" action="/estatus/editar/<%= statusId%>/<%= statusId%>" method="POST">
+            <div class="input-form">
+                <label for="name"><b>Nuevo</b> nombre del estatus</label>
+                <input id="name" type="text" name="name" value="<%= data[0].dataValues.name%>" required />
+            </div>
+            <div class="input-form">
+                <label for="status"><b>Nuevo</b> color de importancia</label>
+                <select name="color">
+                    <option selected>(Color viejo: <%= data[0].dataValues.color%>))</option>
+                    <option value="verde">verde - baja</option>
+                    <option value="naranja">naranja - media</option>
+                    <option value="rojo">rojo - alta</option>
+                </select>
+            </div>
+            <button class="btn btn-login btn-click" type="submit">
+                Editar y guardar
+            </button>
+        </form>
+    </div>
+
+</main>
+
+<%- include('../template/footer') -%>

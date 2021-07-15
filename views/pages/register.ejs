@@ -1,0 +1,27 @@
+<%- include('../template/head') -%>
+<%- include('../template/nav') -%>
+<div class="container-login">
+    <div class="content-login">
+        <h2>Registro de usuarios</h2>
+        <form class="form" action="/registro" method="POST">
+            <div class="input-form">
+                <label for="firstname">Nombre</label>
+                <input id="name" type="text" name="firstname" required>
+            </div>
+            <div class="input-form">
+                <label for="lastname">Apellido</label>
+                <input type="text" name="lastname" required>
+            </div>
+            <div class="input-form">
+                <label for="email">Email</label>
+                <input type="email" name="email" required>
+            </div>
+            <div class="input-form">
+                <label for="password">Contraseña</label>
+                <input type="password" name="password" required>
+            </div>
+            <button class="btn btn-login btn-click" type="submit">Enviar</button>
+        </form>
+    </div>
+</div>
+<%- include('../template/footer') -%>

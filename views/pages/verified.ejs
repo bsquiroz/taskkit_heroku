@@ -1,0 +1,16 @@
+<%- include('../template/head') -%>
+<%- include('../template/nav') -%>
+
+<div class="container-login">
+    <div class="content-home text-center">
+        <p>Hola, <b><%= firstname%></b>, antes de iniciar con nuestro servicios deberas de confirmar tu identidad</p>
+        <p>Mandaremos un link de verificacion al correo <b><%= email%></b></p>
+        <form action="/auth/confirm-count" method="POST">
+            <input type="hidden" value=<%= email%> name="email">
+            <button class="btn-home btn-click">
+                Click para enviar
+            </button>
+        </form>
+    </div>
+</div>
+<%- include('../template/footer') -%>

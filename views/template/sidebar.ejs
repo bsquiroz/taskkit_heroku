@@ -1,0 +1,23 @@
+<sidebar class="sidebar" id="sidebar">
+    <span class="sidebar_logo"><a href="/">Taskit</a> </span>
+    <ul class="menu">
+        <li class="btn-click"><a href="/tareas">tareas</a></li>
+        <li class="btn-click"><a href="/estatus">estatus</a></li>
+        <li class="btn-click"><a href="/categorias">categorias</a></li>
+    </ul>
+    <div class="perfil">
+        <b><%= fullName %></b>
+        <form action="/auth/reset-password" method="POST">
+            <input type="hidden" value=<%= emailUser%> name="email">
+            <button>Cambiar contraseña</button>
+        </form>
+        <a class="dropdown-item item-flex" href="/logout">
+            <ion-icon name="log-out-outline"></ion-icon> <span>Cerrar Sesión</span>
+        </a>
+
+    </div>
+</sidebar>
+<div class="icon-menu btn-click" id="icon-toggle">
+    <ion-icon class="active" id="menu-open" name="grid-outline"></ion-icon>
+    <ion-icon class="no-active" id="menu-close" name="close-outline"></ion-icon>
+</div>

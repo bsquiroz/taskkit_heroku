@@ -1,0 +1,33 @@
+1. npm i sequelize express pg pg-hstore
+2. npm i nodemon -D
+3. npm i ejs
+4. sequelize init -> (iniciar el proyecto con sequelize)
+5. npm i passport passport-local passport-google-oauth2
+6. npm i express-session
+7. npm i bcryptjs
+8. npm i dotenv
+9. npm i nodemailer
+10. npm i googleapis
+11. npm i cors
+
+(crear una migracion y un modelo) 
+# users
+sequelize model:generate --name users --attributes firstname:string,lastname:string,password:string,email:string,profile_photo:string,active:boolean
+
+(hacer migracion)
+sequelize db:migrate
+
+(borrar las migraciones)
+sequelize db:migrate:undo:all
+
+(variables de entorno)
+PORT=8000
+BD_USERNAME=postgres
+BD_PASSWORD=0204
+BD_DATABASE=taskitlocal
+BD_HOST=127.0.0.1
+GOOGLE_CLIENT_ID=1023498569000-la9pqa9kreh3btio212i1rl5ksf8ghru.apps.googleusercontent.com
+GOOGLE_SECRET=BRY_1uHTM0mDq5niSZSGnzfg
+GOOGLE_REDIRECT_URL=http://localhost:8000/auth/google/callback
+FB_CLIENT_ID=329019342025615
+FB_SECRET=3520e99f306880b7bf9e1a2cc54ba07f

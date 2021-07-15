@@ -1,0 +1,86 @@
+<%- include('../template/head') -%>
+<main class="container-login">
+    <%- include('../template/sidebar') -%>
+    <div class="content-login bg-login m-login">
+        <h2>Nueva Tarea</h2>
+        <form class="form" action="/tareas/create" method="POST">
+            <div class="input-form">
+                <label for="title">titulo</label>
+                <input id="title" type="text" name="title" required />
+            </div>
+            <div class="input-form">
+                <label for="description">Descripcion</label>
+                <input id="description" type="text" name="description" required />
+            </div>
+            <div class="input-form">
+                <label for="due_date">Fecha</label>
+                <input id="description" type="date" name="due_date" required />
+            </div>
+            <div class="input-form">
+                <label for="status">estatus</label>
+                <select name="status">
+                    <option selected>Elije un estatus</option>
+                    <%data.statuses.forEach((element) => {%>
+                    <option value=<%= element.id%>>
+                        <%= element.name%>
+                    </option>
+                    <%});%>
+                </select>
+            </div>
+            <div class="input-form">
+                <label for="category">categoria</label>
+                <select name="category">
+                    <option selected>Elije una categoria</option>
+                    <%data.categories.forEach((element) => {%>
+                    <option value=<%= element.id%>>
+                        <%= element.name%>
+                    </option>
+                    <%});%>
+                </select>
+            </div>
+            <button class="btn btn-login btn-click" type="submit">
+                Guardar
+            </button>
+        </form>
+        <div class="task-content">
+            <%data.tasks.forEach((element, i) => {%>
+            <div class="card">
+                <div class="card-title">
+                    <p><b>#<%= i+1 %></b> <%= element.title %></p>
+                </div>
+                <div class="card-body">
+                    <p><%= element.description %></p>
+                    <% if(element.completed){ %>
+                    <a href="/tareas/completed/<%= element.id %>">
+                        Completa
+                    </a>
+                    <% }else{ %>
+                    <a href="/tareas/completed/<%= element.id %>">
+                        Incompleta
+                    </a>
+                    <% }; %>
+                </div>
+                <div class="card-info">
+                    <div>
+                        <p><%= element.due_date %></p>
+                    </div>
+                    <div>
+                        <p><%= element.Category.name %></p>
+                        <p><%= element.Status.name %></p>
+                    </div>
+                </div>
+                <div class="card-option">
+                    <a class="btn-icon bg-icon-edit" href="/tareas/editar/<%= element.id %>">
+                        <ion-icon name="create-outline"></ion-icon>
+                    </a>
+                    <a class="btn-icon bg-icon-delete" href="/tareas/eliminar/<%= element.id %>">
+                        <ion-icon name="trash-outline"></ion-icon>
+                    </a>
+                </div>
+            </div>
+            <%});%>
+        </div>
+    </div>
+</main>
+
+<%- include('../template/footer') -%>

@@ -1,0 +1,11 @@
+.bg-login {
+    background-color: var(--color-white);
+}
+.m-login {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.task-content {
+    margin-top: 1em;
+}
