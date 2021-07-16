@@ -80,7 +80,6 @@ passport.serializeUser(async (profile, done) => {
 
         const firstname = profile.given_name || profile._json.first_name;
         const lastname = profile.family_name || profile._json.last_name;
-
         const userObj = {
             firstname,
             lastname,

@@ -5,7 +5,7 @@ const isCountVerify = (req, res, next) => {
         return next();
     }
 
-    return res.redirect("/verified");
+    return res.redirect("/auth/verified");
 };
 
 module.exports = isCountVerify;

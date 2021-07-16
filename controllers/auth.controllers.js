@@ -1,5 +1,9 @@
 const passport = require("passport");
 const { newUser } = require("../services/auth.services");
+const {
+    getTokenAndUser,
+    verifyPass,
+} = require("../services/verify_tokens.services");
 const { sendMail, emailOptions } = require("../config/nodemailes");
 const ejs = require("ejs");
 const path = require("path");
@@ -51,8 +55,11 @@ const facebookCallback = passport.authenticate("facebook", {
     failureRedirect: "/login",
 });
 
-const resetPassword = async (req, res, next) => {
+const sendLinkResetPass = async (req, res, next) => {
     try {
+        const user_id = req.user.id;
+        const userVerify = await getTokenAndUser(user_id);
+        const user_token = userVerify.token;
         const template = await ejs.renderFile(
             path.join(
                 __dirname,
@@ -60,7 +67,8 @@ const resetPassword = async (req, res, next) => {
                 "views",
                 "email-templates",
                 "reset-password.ejs"
-            )
+            ),
+            { user_id, user_token }
         );
         const { email } = req.body;
         emailOptions.to = email;
@@ -69,7 +77,7 @@ const resetPassword = async (req, res, next) => {
         emailOptions.html = template;
         await sendMail(emailOptions);
         res.render("pages/info-reset-pass", {
-            title: "enviar link",
+            title: "Autorización",
             email,
         });
     } catch (error) {
@@ -77,8 +85,11 @@ const resetPassword = async (req, res, next) => {
     }
 };
 
-const confirmCount = async (req, res, next) => {
+const sendLinkConfirmCount = async (req, res, next) => {
     try {
+        const user_id = req.user.id;
+        const userVerify = await getTokenAndUser(user_id);
+        const user_token = userVerify.token;
         const template = await ejs.renderFile(
             path.join(
                 __dirname,
@@ -86,8 +97,10 @@ const confirmCount = async (req, res, next) => {
                 "views",
                 "email-templates",
                 "confirm-count.ejs"
-            )
+            ),
+            { user_id, user_token }
         );
+
         const { email } = req.body;
         emailOptions.to = email;
         emailOptions.subject = "Confirmacion de la cuenta de Taskit";
@@ -112,7 +125,34 @@ const renderVerified = (req, res) => {
     });
 };
 
-const restablecer = (req, res) => {
+const confirmResetPass = async (req, res) => {
+    try {
+        const { token, user_id } = req.query;
+        const user = await getTokenAndUser(user_id);
+
+        if (token === user.token) {
+            res.render("pages/change-password", {
+                title: "Cambiar contraseña",
+                user_id,
+            });
+        }
+    } catch (error) {
+        next(error);
+    }
+};
+
+const confirmResetPass2 = async (req, res) => {
+    const { passNew1, user_id, passOld } = req.body;
+    const change = await verifyPass(passOld, passNew1, user_id);
+
+    if (change) {
+        return res.redirect("/login");
+    } else {
+        return res.send("Sucedio un error vuelve a enviar las credenciales");
+    }
+};
+
+const confirmCount = (req, res) => {
     const aux = req.query;
     res.json({ aux });
 };
@@ -127,8 +167,10 @@ module.exports = {
     authFacebook,
     googleCallback,
     facebookCallback,
-    resetPassword,
     renderVerified,
+    sendLinkResetPass,
+    sendLinkConfirmCount,
     confirmCount,
-    restablecer,
+    confirmResetPass,
+    confirmResetPass2,
 };
