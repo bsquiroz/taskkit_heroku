@@ -1,5 +1,5 @@
 const passport = require("passport");
-const { newUser } = require("../services/auth.services");
+const { newUser, verifyCount } = require("../services/auth.services");
 const {
     getTokenAndUser,
     verifyPass,
@@ -7,9 +7,15 @@ const {
 const { sendMail, emailOptions } = require("../config/nodemailes");
 const ejs = require("ejs");
 const path = require("path");
+require("dotenv");
 
 const renderLogin = (req, res) => {
-    res.render("pages/login", { title: "Login" });
+    const { failed } = req.query;
+    if (failed) {
+        res.render("pages/login", { title: "Login", failed });
+    } else {
+        res.render("pages/login", { title: "Login", failed: false });
+    }
 };
 
 const renderRegistro = (req, res) => {
@@ -33,7 +39,7 @@ const logout = (req, res) => {
 
 const authLocal = passport.authenticate("local", {
     successRedirect: "/tareas",
-    failureRedirect: "login",
+    failureRedirect: "/login?failed=true",
 });
 
 const authGoogle = passport.authenticate("google", {
@@ -65,6 +71,7 @@ const sendLinkResetPass = async (req, res, next) => {
             process.env.NODE_ENV === "production"
                 ? process.env.BASE_URL_PROD
                 : process.env.BASE_URL_LOCAL;
+
         const template = await ejs.renderFile(
             path.join(
                 __dirname,
@@ -95,6 +102,12 @@ const sendLinkConfirmCount = async (req, res, next) => {
         const user_id = req.user.id;
         const userVerify = await getTokenAndUser(user_id);
         const user_token = userVerify.token;
+
+        const baseUrl =
+            process.env.NODE_ENV === "production"
+                ? process.env.BASE_URL_PROD
+                : process.env.BASE_URL_LOCAL;
+
         const template = await ejs.renderFile(
             path.join(
                 __dirname,
@@ -103,7 +116,7 @@ const sendLinkConfirmCount = async (req, res, next) => {
                 "email-templates",
                 "confirm-count.ejs"
             ),
-            { user_id, user_token }
+            { user_id, user_token, baseUrl }
         );
 
         const { email } = req.body;
@@ -157,9 +170,15 @@ const confirmResetPass2 = async (req, res) => {
     }
 };
 
-const confirmCount = (req, res) => {
-    const aux = req.query;
-    res.json({ aux });
+const confirmCount = async (req, res) => {
+    const { user_id } = req.query;
+    const data = await verifyCount(user_id);
+
+    if (data) {
+        return res.redirect("/login");
+    } else {
+        return res.send("Sucedio un error vuelve y pide cambiar la contraseña");
+    }
 };
 
 module.exports = {

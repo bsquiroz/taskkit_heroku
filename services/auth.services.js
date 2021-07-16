@@ -52,9 +52,21 @@ const isUserVerify = async (id_user) => {
     }
 };
 
+const verifyCount = async (id_user) => {
+    try {
+        const verified = true;
+        const user = await Users.update(
+            { verified },
+            { where: { id: id_user } }
+        );
+        return user;
+    } catch (error) {}
+};
+
 module.exports = {
     newUser,
     checkUserExist,
     linkUserProvider,
     isUserVerify,
+    verifyCount,
 };
