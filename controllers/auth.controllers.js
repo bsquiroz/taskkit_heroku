@@ -60,6 +60,11 @@ const sendLinkResetPass = async (req, res, next) => {
         const user_id = req.user.id;
         const userVerify = await getTokenAndUser(user_id);
         const user_token = userVerify.token;
+
+        const baseUrl =
+            process.env.NODE_ENV === "production"
+                ? process.env.BASE_URL_PROD
+                : process.env.BASE_URL_LOCAL;
         const template = await ejs.renderFile(
             path.join(
                 __dirname,
@@ -68,7 +73,7 @@ const sendLinkResetPass = async (req, res, next) => {
                 "email-templates",
                 "reset-password.ejs"
             ),
-            { user_id, user_token }
+            { user_id, user_token, baseUrl }
         );
         const { email } = req.body;
         emailOptions.to = email;
